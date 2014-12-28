@@ -16,8 +16,7 @@ StrawberryApp.controller('MainCtrl', function($scope) {
 		return str.replace(/\w/g, hiddenMark);
 	};
 
-	var setData = function(outScope) {
-		outScope = (outScope || false);
+	var setData = function() {
 		var words = g.words;
 		// TODO : don't choose duplicate sentence.
 		var index = parseInt(Math.random() * 10) % words.length;
@@ -32,24 +31,13 @@ StrawberryApp.controller('MainCtrl', function($scope) {
 			word.partition.tail = ((word.sentence.match(rpartition_tail) || []).pop() || ""); //.replace("- ","");
 		}
 
-		var applyData = function() {
-				$scope.word = {
+		return {
 					answer: word.partition.answer,
 					head: word.partition.head,
 					tail: word.partition.tail,
 					hiddenChar: hideChar(word.partition.answer),
 					translate: word.translate
 				};
-			};
-
-		if(outScope) {
-			$scope.$apply(applyData);
-		}
-		else {
-			applyData();
-		}
-
-		$scope.correctResult = "default";
 	};
 
 	var changeStatus = function(status) {
@@ -74,7 +62,11 @@ StrawberryApp.controller('MainCtrl', function($scope) {
 		};
 	}
 
-	$scope.nextWord = setData;
+	$scope.nextWord = function() {
+		$scope.word = setData();
+		changeStatus("default");
+	}
+
 	$scope.word = { head:"", tail:"", answer:"", hiddenChar:"" };
 	//$scope.labelStatus = "label-default";
 	$scope.correctResult = "default";
@@ -86,7 +78,9 @@ StrawberryApp.controller('MainCtrl', function($scope) {
 		//var self = this;
 		g.loadFile(bookname, function(data) {
 			g.words = data.words;
-			setData(true);
+			$scope.$apply(function() {
+				$scope.word = setData();
+			});
 		});
 	};
 
@@ -113,6 +107,8 @@ StrawberryApp.controller('MainCtrl', function($scope) {
 });
 
 StrawberryApp.loadFile = function(filename, callback) {
+	// TODO: change to $http
+	// TODO: make two style queue (new and old) not to get duplicated quiz for random
 	var result = $.getJSON(filename, function(data) {
 		callback(data);
 		//console.log(data.responseText);
