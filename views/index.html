@@ -1,0 +1,42 @@
+<html>
+<head>
+	<!-- TODO: Make App Cache --> 
+	<script src="./libs/jquery-2.1.3.js"></script>
+	<script src="./libs/angular.js"></script>
+	<script src="./libs/angular-route.js"></script>
+	<script src="./libs/angular-touch.js"></script>
+	<script src="./libs/ui-bootstrap-tpls-0.12.0.js"></script>
+	<script src="./javascripts/strawberry.js"></script>
+	<link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="./stylesheets/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body ng-app="StrawberryApp">
+	<div class="container" ng-controller="MainCtrl" ng-init="init()">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="page-header">
+					<h1>
+						Strawberry English <small>Learn English Everyday!</small>
+					</h1>
+				</div>
+				<p class="text-center text-info lead">
+					{{word.translate}}
+				</p>
+				<p class="text-center text-info lead">
+					{{word.head}} {{word.hiddenChar}} {{word.tail}}
+				</p>
+				<form role="form" class="form-inline">
+					<div class="form-group has-{{form.statusInput}} has-feedback">
+						 <label for="Answer">{{word.answer.length}} characters</label>
+						<input type="text" class="form-control" id="Answer" ng-model="word.inputWord" ng-change="inputChange()"
+						 maxlength="{{word.answer.length}}" aria-describedby="statusInputIcon"/>
+						 <span class="glyphicon form-control-feedback glyphicon-{{form.statusIcon}}" aria-hidden="true"></span>
+					</div>
+					<button type="button" class="btn btn-default" ng-click="nextWord()">Next</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+ "words":[
+ {
+ 	"sentence": "Is it -on- sale?",
+ 	"translate": "할인 중인가요?"
+ },
+ {
+ 	"sentence": "I'm just -browsing-",
+ 	"translate": "그냥 구경하는 거예요"
+ },
+ {
+ 	"sentence": "What are your -business- hours?",
+ 	"translate": "업무시간이 언제예요?"
+ }
+ ]
+}
