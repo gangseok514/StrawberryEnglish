@@ -30,10 +30,9 @@
 					<div class="form-group has-{{form.statusInput}} has-feedback">
 						 <label for="Answer">{{word.answer.length}} characters</label>
 						<input type="text" class="form-control" id="Answer" ng-model="word.inputWord" ng-change="inputChange()"
-						 maxlength="{{word.answer.length}}" aria-describedby="statusInputIcon"/>
-						 <span class="glyphicon form-control-feedback glyphicon-{{form.statusIcon}}" aria-hidden="true"></span>
+						 ng-keypress="($event.which === 13)?nextAction():0" maxlength="{{word.answer.length}}" aria-describedby="statusInputIcon"/>
+						 <span class="glyphicon form-control-feedback glyphicon-{{form.statusIcon}}" aria-hidden="true" ng-click="nextAction()"></span>
 					</div>
-					<button type="button" class="btn btn-default" ng-click="nextWord()">Next</button>
 				</form>
 			</div>
 		</div>
